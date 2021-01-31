@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from pokes.models import Pokemon, Type, Trainer, Researcher
 
@@ -12,10 +13,11 @@ class PokemonSerializer(serializers.HyperlinkedModelSerializer):
 
 class PokemonDetailSerializer(serializers.ModelSerializer):
     type = serializers.SlugRelatedField(queryset=Type.objects.all(), slug_field='name')
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Pokemon
-        fields = ('name', 'description', 'type')
+        fields = ('number', 'name', 'type', 'description', 'owner')
 
 
 class TypeSerializer(serializers.HyperlinkedModelSerializer):
@@ -38,10 +40,11 @@ class TrainerSerializer(serializers.HyperlinkedModelSerializer):
 
 class TrainerDetailSerializer(serializers.ModelSerializer):
     pokemon = serializers.SlugRelatedField(queryset=Pokemon.objects.all(), many=True, slug_field='name')
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Trainer
-        fields = ('name', 'age', 'region', 'pokemon')
+        fields = ('name', 'age', 'region', 'pokemon', 'owner')
 
 
 class ResearcherSerializer(serializers.ModelSerializer):
@@ -56,3 +59,12 @@ class ResearcherDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Researcher
         fields = ('name', 'trainers')
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    pokemon = PokemonSerializer(many=True, read_only=True)
+    trainer = TrainerSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('url', 'pk', 'username', 'pokemon', 'trainer')

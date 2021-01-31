@@ -2,9 +2,10 @@ from django.shortcuts import render
 from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from django.contrib.auth.models import User
 
 from pokes.models import Pokemon, Type, Trainer, Researcher
-from pokes.serializers import PokemonSerializer, TypeSerializer, TypeDetailSerializer, TrainerSerializer, TrainerDetailSerializer, ResearcherSerializer, PokemonDetailSerializer, ResearcherDetailSerializer
+from pokes.serializers import PokemonSerializer, TypeSerializer, TypeDetailSerializer, TrainerSerializer, TrainerDetailSerializer, ResearcherSerializer, PokemonDetailSerializer, ResearcherDetailSerializer, UserSerializer
 
 
 class ListPokes(generics.ListCreateAPIView):
@@ -13,7 +14,7 @@ class ListPokes(generics.ListCreateAPIView):
     name = 'pokemon-list'
 
 
-class DetailPokes(generics.RetrieveDestroyAPIView):
+class DetailPokes(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pokemon.objects.all()
     serializer_class = PokemonDetailSerializer
     name = 'pokemon-detail'
@@ -25,7 +26,7 @@ class ListTypes(generics.ListCreateAPIView):
     name = 'types-list'
 
 
-class DetailTypes(generics.RetrieveDestroyAPIView):
+class DetailTypes(generics.RetrieveUpdateDestroyAPIView):
     queryset = Type.objects.all()
     serializer_class = TypeDetailSerializer
     name = 'type-detail'
@@ -37,7 +38,7 @@ class ListTrainers(generics.ListCreateAPIView):
     name = 'trainer-list'
 
 
-class DetailTrainers(generics.RetrieveDestroyAPIView):
+class DetailTrainers(generics.RetrieveUpdateDestroyAPIView):
     queryset = Trainer.objects.all()
     serializer_class = TrainerDetailSerializer
     name = 'trainer-detail'
@@ -49,10 +50,22 @@ class ListResearchers(generics.ListCreateAPIView):
     name = 'researcher-list'
 
 
-class DetailResearchers(generics.RetrieveDestroyAPIView):
+class DetailResearchers(generics.RetrieveUpdateDestroyAPIView):
     queryset = Researcher.objects.all()
     serializer_class = ResearcherDetailSerializer
     name = 'researchers-detail'
+
+
+class ListUsers(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    name = 'user-list'
+
+
+class DetailUsers(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    name = 'user-detail'
 
 
 class ApiRoot(generics.GenericAPIView):
@@ -64,4 +77,5 @@ class ApiRoot(generics.GenericAPIView):
             'types': reverse(ListTypes.name, request=request),
             'trainers': reverse(ListTrainers.name, request=request),
             'researchers': reverse(ListResearchers.name, request=request),
+            'users': reverse(ListUsers.name, request=request),
         })

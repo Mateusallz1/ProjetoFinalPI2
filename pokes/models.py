@@ -8,6 +8,7 @@ class Type(models.Model):
     
 
 class Pokemon(models.Model):
+    owner = models.ForeignKey('auth.User', related_name='pokemonowner', on_delete=models.CASCADE, null=True, blank=True)
     number = models.CharField(max_length=3)
     name = models.CharField(max_length=128)
     type = models.ForeignKey(Type, related_name='tipos', on_delete=models.CASCADE)
@@ -15,6 +16,7 @@ class Pokemon(models.Model):
 
 
 class Trainer(models.Model):
+    owner = models.ForeignKey('auth.User', related_name='trainers', on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=128)
     age = models.CharField(max_length=3)
     region = models.CharField(max_length=58)
