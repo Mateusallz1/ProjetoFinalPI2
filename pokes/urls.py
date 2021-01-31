@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from pokes import views
 
 urlpatterns = [
@@ -12,5 +12,8 @@ urlpatterns = [
     path('types/', views.ListTypes.as_view(), name=views.ListTypes.name),
     path('types-detail/<int:pk>/', views.DetailTypes.as_view(), name=views.DetailTypes.name),
     path('researchers/', views.ListResearchers.as_view(), name=views.ListResearchers.name),
-    path('researchers-detail/<int:pk>/', views.DetailResearchers.as_view(), name=views.DetailResearchers.name)
+    path('researchers-detail/<int:pk>/', views.DetailResearchers.as_view(), name=views.DetailResearchers.name),
+    path('users/', views.ListUsers.as_view(), name=views.ListUsers.name),
+    path('users-detail/', views.DetailUsers.as_view(), name=views.DetailUsers.name),
+    path('api-auth/', include('rest_framework.urls')),
 ]
