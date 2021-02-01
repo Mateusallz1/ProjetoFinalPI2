@@ -37,14 +37,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'rest_framework',
     'pokes',
+    'crispy_forms',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', 'PAGE_SIZE': 5,
-    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.BasicAuthentication', 'rest_framework.authentication.SessionAuthentication',)
-
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.BasicAuthentication', 'rest_framework.authentication.SessionAuthentication', 'rest_framework_simplejwt.authentication.JWTAuthentication',),
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.SearchFilter', 'rest_framework.filters.OrderingFilter',),
+    'DEFAULT_THROTTLE_CLASSES': ('rest_framework.throttling.AnonRateThrottle', 'rest_framework.throttling.UserRateThrottle',),
+    'DEFAULT_THROTTLE_RATES': {'anon': '5/hour', 
+                               'user': '20/hour',
+                               'pokemon-throttle': '15/hour',
+                               'trainer-throttle': '15/hour',
+                               },
 }
 
 MIDDLEWARE = [

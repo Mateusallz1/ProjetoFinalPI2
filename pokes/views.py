@@ -3,7 +3,7 @@ from rest_framework import status, generics, permissions
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from django.contrib.auth.models import User
-
+from rest_framework.throttling import ScopedRateThrottle
 from pokes.permissions import IsOwnerOrReadOnly
 from pokes.models import Pokemon, Type, Trainer, Researcher
 from pokes.serializers import PokemonSerializer, TypeSerializer, TypeDetailSerializer, TrainerSerializer, TrainerDetailSerializer, ResearcherSerializer, PokemonDetailSerializer, ResearcherDetailSerializer, UserSerializer
@@ -14,6 +14,12 @@ class ListPokes(generics.ListCreateAPIView):
     serializer_class = PokemonSerializer
     name = 'pokemon-list'
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    filter_fields = ('name', 'owner',)
+    search_fields = ('^name',)
+    ordering_fields = ('name', 'number',)
+    throttle_scope = 'pokemon-throttle'
+    throttle_classes = (ScopedRateThrottle,)
+
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -24,6 +30,8 @@ class DetailPokes(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PokemonDetailSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly) 
     name = 'pokemon-detail'
+    throttle_scope = 'pokemon-throttle'
+    throttle_classes = (ScopedRateThrottle,)
 
 
 class ListTypes(generics.ListCreateAPIView):
@@ -45,6 +53,12 @@ class ListTrainers(generics.ListCreateAPIView):
     serializer_class = TrainerSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     name = 'trainer-list'
+    filter_fields = ('name',)
+    search_fields = ('^name',)
+    ordering_fields = ('name','age')
+    throttle_scope = 'trainer-throttle'
+    throttle_classes = (ScopedRateThrottle,)
+
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -55,6 +69,8 @@ class DetailTrainers(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TrainerDetailSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly) 
     name = 'trainer-detail'
+    throttle_scope = 'trainer-throttle'
+    throttle_classes = (ScopedRateThrottle,)
 
 
 class ListResearchers(generics.ListCreateAPIView):

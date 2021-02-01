@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.ApiRoot.as_view(), name=views.ApiRoot.name),
 
     path('pokes/', views.ListPokes.as_view(), name=views.ListPokes.name),
-    path('poke-detail/<int:pk>/', views.DetailPokes.as_view(), name=views.DetailPokes.name),
+    path('pokes-detail/<int:pk>/', views.DetailPokes.as_view(), name=views.DetailPokes.name),
     path('trainers/', views.ListTrainers.as_view(), name=views.ListTrainers.name),
     path('trainers-detail/<int:pk>/', views.DetailTrainers.as_view(), name=views.DetailTrainers.name),
     path('types/', views.ListTypes.as_view(), name=views.ListTypes.name),
