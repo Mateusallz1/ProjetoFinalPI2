@@ -4,7 +4,7 @@ O trabalho propõe a ser uma representação de um labotarório pokémon, onde u
 alterar suas características e excluí-los caso deseje.
 
 Os apps instalados para o funcionamento da API foram:
-'django_filters', 'drf_yasg', 'crispy_forms', rest_framework' e 'rest_framework_swagger',
+'django_filters', 'drf_yasg', 'crispy_forms', 'rest_framework' e 'rest_framework_swagger',
 
 A documentação está disponível pelo caminho: http://localhost:8000/api_documentation/
 
