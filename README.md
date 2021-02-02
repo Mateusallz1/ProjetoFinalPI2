@@ -3,7 +3,7 @@
 O trabalho propõe a ser uma representação de um labotarório pokémon, onde um pesquisador pode adicionar novos pokémon e treinadores,
 alterar suas características e excluí-los caso deseje.
 
-link: https://youtu.be/1Et8F1sTKqA
+link do vídeo: https://youtu.be/1Et8F1sTKqA
 
 Os apps instalados para o funcionamento da API foram:
 'django_filters', 'drf_yasg', 'crispy_forms', 'rest_framework' e 'rest_framework_swagger',
