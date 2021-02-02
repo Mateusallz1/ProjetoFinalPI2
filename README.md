@@ -9,8 +9,7 @@ Os apps instalados para o funcionamento da API foram:
 A documentação está disponível pelo caminho: http://localhost:8000/api_documentation/
 
 
-Lista de todos os Pokémon cadastrados no sistema: http://localhost:8000/pokes/
-
+<p>Lista de todos os Pokémon cadastrados no sistema: http://localhost:8000/pokes/<p>
 Detalhe dos Pokémon que estão cadastrados no sistema: http://localhost:8000/pokes-detail/pk/
 
 Lista de todos os treinadores cadastrados no sistema: http://localhost:8000/trainers/
