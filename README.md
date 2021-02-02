@@ -10,6 +10,7 @@ A documentação está disponível pelo caminho: http://localhost:8000/api_docum
 
 
 Lista de todos os Pokémon cadastrados no sistema: http://localhost:8000/pokes/
+
 Detalhe dos Pokémon que estão cadastrados no sistema: http://localhost:8000/pokes-detail/pk/
 
 Lista de todos os treinadores cadastrados no sistema: http://localhost:8000/trainers/
